@@ -19,6 +19,12 @@ import lombok.Setter;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.FetchType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.util.stream.Collectors;
+import com.rahil.book_nexus.role.Role;
 
 @Getter
 @Setter
