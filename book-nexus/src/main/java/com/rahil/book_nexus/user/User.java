@@ -16,6 +16,9 @@ import jakarta.persistence.GeneratedValue;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -106,7 +109,7 @@ public class User implements UserDetails, Principal {
         return enabled;
     }
 
-    private String getFullName() {
+    public String getFullName() {
         return firstName + " " + lastName;
     }
 

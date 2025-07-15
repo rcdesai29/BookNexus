@@ -1,20 +1,25 @@
 package com.rahil.book_nexus.auth;
 
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rahil.book_nexus.user.User;
 import com.rahil.book_nexus.user.UserRepository;
-import com.rahil.book_nexus.user.token.Token;
-import com.rahil.book_nexus.user.token.TokenRepository;
-import com.rahil.book_nexus.user.token.EmailService;
+import com.rahil.book_nexus.user.Token;
+import com.rahil.book_nexus.user.TokenRepository;
+import com.rahil.book_nexus.email.EmailService;
+import com.rahil.book_nexus.email.EmailTemplateName;
+import com.rahil.book_nexus.role.RoleRepository;
+import com.rahil.book_nexus.role.Role;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenticationService {
 
     private final RoleRepository roleRepository;
@@ -45,16 +50,21 @@ public class AuthenticationService {
     private void sendValidationEmail(User user) {
         var newToken = generateAndSaveActivationToken(user);
 
-        emailService.sendEmail(user.getEmail(), user.getFullName(), EmailTemplateName.ACTIVATE_ACCOUNT, activationUrl,
-                newToken, "Activate your account");
+        try {
+            emailService.sendEmail(user.getEmail(), user.getFullName(), EmailTemplateName.ACTIVATE_ACCOUNT,
+                    activationUrl,
+                    newToken, "Activate your account");
+        } catch (jakarta.mail.MessagingException e) {
+            throw new RuntimeException("Failed to send email", e);
+        }
     }
 
     private String generateAndSaveActivationToken(User user) {
         String generatedToken = generateActivationToken(6);
         var token = Token.builder()
                 .token(generatedToken)
-                .createdAt(LocalDateTime.now())
-                .expiresAt(LocalDateTime.now().plusMinutes(15))
+                .createdAt(LocalDate.now())
+                .expiresAt(LocalDate.now().plusDays(1))
                 .user(user)
                 .build();
         tokenRepository.save(token);

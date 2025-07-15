@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
@@ -23,7 +24,9 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 public class EmailService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
-    private final String fromEmail;
+
+    @Value("${application.mailing.from-email}")
+    private String fromEmail;
 
     @Async
     public void sendEmail(
