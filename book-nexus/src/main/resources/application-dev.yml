@@ -36,3 +36,7 @@ application:
   mailing:
     frontend:
       activation-url: http://localhost:4200/activate-account
+    from-email: noreply@booknexus.com
+
+server:
+  port: 8080

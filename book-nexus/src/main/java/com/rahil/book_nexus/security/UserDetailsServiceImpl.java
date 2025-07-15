@@ -1,3 +1,5 @@
+package com.rahil.book_nexus.security;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -6,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
-import com.rahil.book_nexus.repository.UserRepository;
+import com.rahil.book_nexus.user.UserRepository;
 
 @Service
 @RequiredArgsConstructor

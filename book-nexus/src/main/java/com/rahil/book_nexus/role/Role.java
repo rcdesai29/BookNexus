@@ -26,6 +26,8 @@ public class Role {
     @Column(unique = true)
     private String name;
 
+    public static final String USER = "USER";
+
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
     private List<User> users;
