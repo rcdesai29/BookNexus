@@ -37,6 +37,9 @@ application:
     frontend:
       activation-url: http://localhost:4200/activate-account
     from-email: noreply@booknexus.com
+  file:
+    uploads:
+      photos-output-path: /Users/rahil/Desktop/book-nexus/book-nexus/src/main/resources/static/photos
 
 server:
   port: 8080

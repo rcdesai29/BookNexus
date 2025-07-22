@@ -2,7 +2,7 @@ package com.rahil.book_nexus.book;
 
 import org.springframework.stereotype.Service;
 
-import com.rahil.book_nexus.common.FileUtils;
+import com.rahil.book_nexus.file.FileUtils;
 import com.rahil.book_nexus.history.BookTransactionHistory;
 
 @Service
@@ -29,7 +29,7 @@ public class BookMapper {
                 .rate(book.getRate())
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
-                .owner(book.getOwner().fullName())
+                .owner(book.getOwner() != null ? book.getOwner().fullName() : null)
                 .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
