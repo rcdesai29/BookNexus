@@ -17,6 +17,13 @@ import lombok.experimental.SuperBuilder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import com.rahil.book_nexus.common.BaseEntity;
+import com.rahil.book_nexus.user.User;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import com.rahil.book_nexus.feedback.Feedback;
+import com.rahil.book_nexus.history.BookTransactionHistory;
 
 @Entity
 @Getter
@@ -34,4 +41,13 @@ public class Book extends BaseEntity {
     private boolean archived;
     private boolean shareable;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    @OneToMany(mappedBy = "book")
+    private List<Feedback> feedbacks;
+
+    @OneToMany(mappedBy = "book")
+    private List<BookTransactionHistory> histories;
 }

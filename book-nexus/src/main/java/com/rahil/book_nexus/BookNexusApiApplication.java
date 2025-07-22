@@ -10,7 +10,7 @@ import com.rahil.book_nexus.role.RoleRepository;
 import com.rahil.book_nexus.role.Role;
 
 @SpringBootApplication
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAsync
 public class BookNexusApiApplication {
 

@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
-
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Builder;
@@ -28,6 +28,9 @@ import jakarta.persistence.FetchType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.stream.Collectors;
 import com.rahil.book_nexus.role.Role;
+import com.rahil.book_nexus.feedback.Feedback;
+import com.rahil.book_nexus.history.BookTransactionHistory;
+import com.rahil.book_nexus.book.Book;
 
 @Getter
 @Setter
@@ -56,6 +59,15 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
+
+    @OneToMany(mappedBy = "user")
+    private List<Feedback> feedbacks;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
