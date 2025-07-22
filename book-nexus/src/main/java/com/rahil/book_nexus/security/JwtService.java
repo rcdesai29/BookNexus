@@ -42,7 +42,7 @@ public class JwtService {
         return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
     }
 
-    private String generateToken(HashMap<String, Object> claims, UserDetails userDetails) {
+    public String generateToken(HashMap<String, Object> claims, UserDetails userDetails) {
         return buildToken(claims, userDetails, jwtExpiration);
     }
 

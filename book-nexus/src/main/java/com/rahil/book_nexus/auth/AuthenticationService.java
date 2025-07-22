@@ -6,8 +6,10 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rahil.book_nexus.user.User;
 import com.rahil.book_nexus.user.UserRepository;
@@ -17,6 +19,7 @@ import com.rahil.book_nexus.email.EmailService;
 import com.rahil.book_nexus.email.EmailTemplateName;
 import com.rahil.book_nexus.role.RoleRepository;
 import com.rahil.book_nexus.role.Role;
+import com.rahil.book_nexus.security.JwtService;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +30,8 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
@@ -80,5 +85,32 @@ public class AuthenticationService {
             codeBuilder.append(characters.charAt(randomIndex));
         }
         return codeBuilder.toString();
+    }
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        var auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        var claims = new HashMap<String, Object>();
+        var user = ((User) auth.getPrincipal());
+        claims.put("fullName", user.getFullName());
+        var jwtToken = jwtService.generateToken(claims, user);
+        return AuthenticationResponse.builder().token(jwtToken).build();
+    }
+
+    @Transactional
+    public void activateAccount(String token) throws Exception {
+        Token savedToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new Exception("Token not found"));
+        if (LocalDate.now().isAfter(savedToken.getExpiresAt())) {
+            sendValidationEmail(savedToken.getUser());
+            throw new Exception("Token expired");
+        }
+        var user = userRepository.findById(savedToken.getUser().getId())
+                .orElseThrow(() -> new Exception("User not found"));
+        user.setAccountLocked(false);
+        user.setEnabled(true);
+        userRepository.save(user);
+        savedToken.setValidatedAt(LocalDate.now());
+        tokenRepository.save(savedToken);
     }
 }

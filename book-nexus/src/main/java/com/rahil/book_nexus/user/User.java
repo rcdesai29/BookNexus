@@ -59,10 +59,10 @@ public class User implements UserDetails, Principal {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private LocalDate CreatedDate;
+    private LocalDate createdDate;
     @LastModifiedDate
     @Column(insertable = false)
-    private LocalDate LastModifiedDate;
+    private LocalDate lastModifiedDate;
 
     @Override
     public String getName() {
