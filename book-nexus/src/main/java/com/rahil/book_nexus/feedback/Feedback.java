@@ -20,6 +20,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Getter
