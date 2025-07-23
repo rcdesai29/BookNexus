@@ -125,4 +125,7 @@ public class User implements UserDetails, Principal {
         return firstName + " " + lastName;
     }
 
+    public String fullName() {
+        return (getFirstName() != null ? getFirstName() : "") + " " + (getLastName() != null ? getLastName() : "");
+    }
 }

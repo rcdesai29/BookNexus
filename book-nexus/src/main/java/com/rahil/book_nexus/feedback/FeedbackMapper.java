@@ -9,8 +9,8 @@ import java.util.Objects;
 public class FeedbackMapper {
     public Feedback toFeedback(FeedbackRequest request) {
         return Feedback.builder()
-                .note(request.note())
-                .comment(request.comment())
+                .rating(request.rating())
+                .review(request.review())
                 .book(Book.builder()
                         .id(request.bookId())
                         .shareable(false)
@@ -21,8 +21,8 @@ public class FeedbackMapper {
 
     public FeedbackResponse toFeedbackResponse(Feedback feedback, Integer id) {
         return FeedbackResponse.builder()
-                .note(feedback.getNote())
-                .comment(feedback.getComment())
+                .rating(feedback.getRating())
+                .review(feedback.getReview())
                 .ownFeedback(Objects.equals(feedback.getUser().getId(), id))
                 .build();
     }

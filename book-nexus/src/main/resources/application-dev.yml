@@ -11,7 +11,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-      database: postgresql
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: localhost
     port: 1025
@@ -23,23 +24,28 @@ spring:
           trust: "*"
         auth: true
         starttls:
-          enable: true
-        connection-timeout: 5000
+          enabled: true
+        connectiontimeout: 5000
         timeout: 3000
-        write-timeout: 5000
+        writetimeout: 5000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/book-nexus"
 
 application:
   security:
     jwt:
-      secret-key: 1234567890
+      secret-key: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
       expiration: 86400000
   mailing:
+    from-email: "rahildesai2003@gmail.com"
     frontend:
-      activation-url: http://localhost:4200/activate-account
-    from-email: noreply@booknexus.com
+      activation-url: "http://localhost:3000/activate-account"
   file:
     uploads:
-      photos-output-path: /Users/rahil/Desktop/book-nexus/book-nexus/src/main/resources/static/photos
+      photos-output-path: "C:/Users/rahildesai/Desktop/book-nexus-photos"
 
 server:
-  port: 8080
+  port: 8088

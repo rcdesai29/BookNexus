@@ -32,8 +32,6 @@ public class Book extends BaseEntity {
     private String bookCover;
     private boolean archived;
     private boolean shareable;
-    @Column(name = "created_by")
-    private String createdBy;
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
@@ -48,7 +46,7 @@ public class Book extends BaseEntity {
             return 0.0;
         }
         var rate = this.feedbacks.stream()
-                .mapToDouble(Feedback::getNote)
+                .mapToDouble(Feedback::getRating)
                 .average()
                 .orElse(0.0);
         double roundedRate = Math.round(rate * 10.0) / 10.0;

@@ -2,6 +2,7 @@ package com.rahil.book_nexus.history;
 
 import com.rahil.book_nexus.book.Book;
 import com.rahil.book_nexus.common.BaseEntity;
+import com.rahil.book_nexus.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -20,8 +21,9 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class BookTransactionHistory extends BaseEntity {
 
-    @Column(name = "user_id")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "book_id")

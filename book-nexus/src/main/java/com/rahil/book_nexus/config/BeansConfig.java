@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import com.rahil.book_nexus.user.UserRepository;
 import com.rahil.book_nexus.security.UserDetailsServiceImpl;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.data.domain.AuditorAware;
 
 @Configuration
 @RequiredArgsConstructor

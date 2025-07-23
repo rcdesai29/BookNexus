@@ -3,10 +3,12 @@ package com.rahil.book_nexus.auth;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.HashMap;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
