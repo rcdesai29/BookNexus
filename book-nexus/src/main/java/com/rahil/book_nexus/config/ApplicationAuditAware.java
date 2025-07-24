@@ -6,7 +6,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import java.util.Optional;
 import com.rahil.book_nexus.user.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ApplicationAuditAware implements AuditorAware<Integer> {
     @Override
     public Optional<Integer> getCurrentAuditor() {

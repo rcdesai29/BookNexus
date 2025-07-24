@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import type { PageResponseBookResponse } from './services/models/PageResponseBookResponse';
-import { BookService } from './services/services/BookService';
+import type { PageResponseBookResponse } from '../app/services/models/PageResponseBookResponse';
+import { BookService } from '../app/services/services/BookService';
 
-export function useBooks(page: number = 0, size: number = 10) {
+export function useBooks(initialPage: number = 0, size: number = 10) {
+  const [page, setPage] = useState(initialPage);
   const [data, setData] = useState<PageResponseBookResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
@@ -16,5 +17,5 @@ export function useBooks(page: number = 0, size: number = 10) {
       .finally(() => setLoading(false));
   }, [page, size]);
 
-  return { data, loading, error };
+  return { data, loading, error, page, setPage };
 } 
