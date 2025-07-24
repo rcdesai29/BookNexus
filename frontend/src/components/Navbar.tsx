@@ -86,12 +86,13 @@ const Navbar: React.FC = () => {
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {/* Left: App Name */}
-        <Typography variant="h6" component={Link} to="/books" sx={{ color: 'inherit', textDecoration: 'none', mr: 4, display: { xs: 'none', md: 'block' } }}>
+        <Typography variant="h6" component={Link} to="/books" sx={{ color: 'inherit', textDecoration: 'none', mr: 4, display: { xs: 'block', md: 'block' } }}>
           BookNexus
         </Typography>
         {isMobile ? (
           <>
-            <IconButton color="inherit" edge="start" onClick={() => setDrawerOpen(true)}>
+            <Box sx={{ flexGrow: 1 }} />
+            <IconButton color="inherit" edge="end" onClick={() => setDrawerOpen(true)} sx={{ ml: 'auto' }}>
               <MenuIcon />
             </IconButton>
             <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
