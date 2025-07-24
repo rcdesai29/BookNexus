@@ -1,0 +1,10 @@
+{
+  "name": "BookNexus",
+  "private": true,
+  "devDependencies": {
+    "openapi-typescript-codegen": "^0.29.0"
+  },
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}
