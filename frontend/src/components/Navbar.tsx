@@ -26,8 +26,10 @@ const Navbar: React.FC = () => {
         <Typography variant="h6" component={Link} to="/books" sx={{ color: 'inherit', textDecoration: 'none', mr: 4 }}>
           BookNexus
         </Typography>
-        {/* Center: Navigation Links */}
-        <Stack direction="row" spacing={2} sx={{ flexGrow: 1, justifyContent: 'center' }}>
+        {/* Spacer to push nav links to the right */}
+        <Box sx={{ flexGrow: 1 }} />
+        {/* Center/Right: Navigation Links */}
+        <Stack direction="row" spacing={2}>
           <Button color="inherit" component={Link} to="/books">Books</Button>
           {isLoggedIn && <Button color="inherit" component={Link} to="/my-books">My Books</Button>}
           {isLoggedIn && <Button color="inherit" component={Link} to="/borrowed-books">Borrowed Books</Button>}
